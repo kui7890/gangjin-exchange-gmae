@@ -5,10 +5,7 @@ from pathlib import Path
 from typing import Dict, List, Optional
 from urllib import error, parse, request
 
-try:
-    from ._quest_bank import QUEST_BANK
-except ImportError:
-    from _quest_bank import QUEST_BANK
+from api._quest_bank import QUEST_BANK
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
