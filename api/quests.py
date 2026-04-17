@@ -1,11 +1,7 @@
 from http.server import BaseHTTPRequestHandler
 
-try:
-    from ._http import get_query_params, send_json
-    from .service import get_quests_for_team, parse_team_id
-except ImportError:
-    from _http import get_query_params, send_json
-    from service import get_quests_for_team, parse_team_id
+from api._http import get_query_params, send_json
+from api.service import get_quests_for_team, parse_team_id
 
 
 class handler(BaseHTTPRequestHandler):
