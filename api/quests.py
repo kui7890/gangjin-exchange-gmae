@@ -14,5 +14,5 @@ class handler(BaseHTTPRequestHandler):
             send_json(self, {"quests": quests})
         except ValueError as error:
             send_json(self, {"error": str(error)}, status=400)
-        except Exception:
-            send_json(self, {"error": "퀘스트를 불러오지 못했습니다."}, status=500)
+        except Exception as error:
+            send_json(self, {"error": str(error)}, status=500)
