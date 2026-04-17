@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>강진 교류 탐험대</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">초등 4학년 사회 · 지역의 교류</p>
+          <h1>강진 교류 탐험대</h1>
+          <p class="hero-text">
+            강진과 주변 지역이 어떻게 서로 도움을 주고받는지 퀘스트를 풀며
+            배워 보세요. 모둠이 힘을 합치면 리더보드도 올라갑니다.
+          </p>
+          <div class="hero-actions">
+            <label class="team-picker">
+              <span>우리 모둠 선택</span>
+              <select id="team-select" aria-label="모둠 선택">
+                <option value="1">1모둠</option>
+                <option value="2">2모둠</option>
+                <option value="3">3모둠</option>
+                <option value="4">4모둠</option>
+              </select>
+            </label>
+            <button id="refresh-button" class="ghost-button" type="button">
+              새로 고침
+            </button>
+          </div>
+        </div>
+        <aside class="hero-board">
+          <div class="board-card">
+            <p class="board-label">현재 우리 모둠</p>
+            <strong id="current-team-name">1모둠</strong>
+            <p id="current-team-score" class="board-score">0점</p>
+          </div>
+          <div class="board-card board-card-accent">
+            <p class="board-label">학습 미션</p>
+            <strong>강진과 주변 지역의 교류 찾기</strong>
+            <p class="board-small">특산물, 축제, 교통, 문화, 일자리를 연결해요.</p>
+          </div>
+        </aside>
+      </header>
+
+      <main class="layout-grid">
+        <section class="panel map-panel">
+          <div class="panel-heading">
+            <h2>교류 지도</h2>
+            <p>어느 지역으로 먼저 가 볼까요? 강진을 중심으로 이어진 지역을 살펴보고 퀘스트를 골라 보세요.</p>
+          </div>
+          <div class="map-stage">
+            <div class="map-node map-node-center">강진</div>
+            <div class="map-node map-node-mokpo">목포</div>
+            <div class="map-node map-node-gwangju">광주</div>
+            <div class="map-node map-node-naju">나주</div>
+            <div class="map-node map-node-haenam">해남</div>
+            <div class="map-node map-node-jangheung">장흥</div>
+            <div class="route route-mokpo"></div>
+            <div class="route route-gwangju"></div>
+            <div class="route route-naju"></div>
+            <div class="route route-haenam"></div>
+            <div class="route route-jangheung"></div>
+          </div>
+          <div class="map-note">
+            <strong>생각 열기:</strong>
+            강진의 축제나 물건, 사람들의 이동은 어떤 주변 지역과 이어질까요?
+          </div>
+        </section>
+
+        <section class="panel leaderboard-panel">
+          <div class="panel-heading">
+            <h2>모둠 리더보드</h2>
+            <p>정답을 맞히면 점수가 올라가고, 이미 해결한 문제는 다시 점수를 받지 않아요.</p>
+          </div>
+          <ol id="leaderboard-list" class="leaderboard-list"></ol>
+          <button id="reset-button" class="danger-button" type="button">
+            새 수업 시작
+          </button>
+        </section>
+      </main>
+
+      <section class="panel quests-panel">
+        <div class="panel-heading">
+          <h2>퀘스트 카드</h2>
+          <p>힌트를 읽고 가장 알맞은 답을 골라 보세요.</p>
+        </div>
+        <div id="quest-grid" class="quest-grid" aria-live="polite"></div>
+      </section>
+
+      <section id="feedback-panel" class="panel feedback-panel" aria-live="polite">
+        <div class="panel-heading">
+          <h2>학습 피드백</h2>
+          <p id="feedback-text">퀘스트를 풀면 여기에 결과와 설명이 나타납니다.</p>
+        </div>
+      </section>
+    </div>
+
+    <template id="quest-template">
+      <article class="quest-card">
+        <div class="quest-topline">
+          <span class="quest-region"></span>
+          <span class="quest-points"></span>
+        </div>
+        <h3 class="quest-title"></h3>
+        <p class="quest-exchange"></p>
+        <p class="quest-question"></p>
+        <form class="quest-form">
+          <div class="quest-options"></div>
+          <button class="primary-button" type="submit">정답 제출</button>
+        </form>
+        <p class="quest-status"></p>
+      </article>
+    </template>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>
