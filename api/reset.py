@@ -1,11 +1,7 @@
 from http.server import BaseHTTPRequestHandler
 
-try:
-    from ._http import read_json_body, send_json
-    from .service import reset_game
-except ImportError:
-    from _http import read_json_body, send_json
-    from service import reset_game
+from api._http import read_json_body, send_json
+from api.service import reset_game
 
 
 class handler(BaseHTTPRequestHandler):
