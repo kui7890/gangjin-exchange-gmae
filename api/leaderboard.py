@@ -8,5 +8,5 @@ class handler(BaseHTTPRequestHandler):
     def do_GET(self):
         try:
             send_json(self, {"leaderboard": get_leaderboard()})
-        except Exception:
-            send_json(self, {"error": "리더보드를 불러오지 못했습니다."}, status=500)
+        except Exception as error:
+            send_json(self, {"error": str(error)}, status=500)
