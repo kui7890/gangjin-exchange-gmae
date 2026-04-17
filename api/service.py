@@ -54,7 +54,10 @@ def get_quests_for_team(team_id: int) -> List[Dict]:
 
 def get_leaderboard() -> List[Dict]:
     if use_supabase():
-        return supabase_get_leaderboard()
+        try:
+            return supabase_get_leaderboard()
+        except RuntimeError:
+            pass
 
     initialize_local_database()
 
@@ -96,7 +99,10 @@ def submit_answer(team_id: int, quest_id: str, answer: str) -> Dict:
         }
 
     if use_supabase():
-        awarded_points = supabase_submit_correct_answer(team_id, quest_id, quest["points"])
+        try:
+            awarded_points = supabase_submit_correct_answer(team_id, quest_id, quest["points"])
+        except RuntimeError:
+            awarded_points = local_submit_correct_answer(team_id, quest_id, quest["points"])
     else:
         awarded_points = local_submit_correct_answer(team_id, quest_id, quest["points"])
 
@@ -120,8 +126,11 @@ def submit_answer(team_id: int, quest_id: str, answer: str) -> Dict:
 
 def reset_game() -> List[Dict]:
     if use_supabase():
-        supabase_reset_game()
-        return get_leaderboard()
+        try:
+            supabase_reset_game()
+            return get_leaderboard()
+        except RuntimeError:
+            pass
 
     initialize_local_database()
     with get_local_connection() as conn:
@@ -138,8 +147,11 @@ def find_quest(quest_id: str) -> Optional[Dict]:
 
 def get_solved_quest_ids(team_id: int) -> List[str]:
     if use_supabase():
-        rows = supabase_get_team_submissions(team_id)
-        return [row["quest_id"] for row in rows]
+        try:
+            rows = supabase_get_team_submissions(team_id)
+            return [row["quest_id"] for row in rows]
+        except RuntimeError:
+            pass
 
     initialize_local_database()
     with get_local_connection() as conn:
