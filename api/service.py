@@ -14,6 +14,7 @@ except ImportError:
 BASE_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = BASE_DIR / "data"
 LOCAL_DB_PATH = DATA_DIR / "gangjin_exchange_game.db"
+VERCEL_DB_PATH = Path("/tmp/gangjin_exchange_game.db")
 
 TEAM_SEED = [
     (1, "1모둠", "#cf7b29"),
@@ -153,8 +154,9 @@ def get_solved_quest_ids(team_id: int) -> List[str]:
 
 
 def get_local_connection() -> sqlite3.Connection:
-    LOCAL_DB_PATH.parent.mkdir(parents=True, exist_ok=True)
-    conn = sqlite3.connect(LOCAL_DB_PATH)
+    db_path = VERCEL_DB_PATH if os.getenv("VERCEL") else LOCAL_DB_PATH
+    db_path.parent.mkdir(parents=True, exist_ok=True)
+    conn = sqlite3.connect(db_path)
     conn.row_factory = sqlite3.Row
     return conn
 
