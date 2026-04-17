@@ -1,11 +1,7 @@
 from http.server import BaseHTTPRequestHandler
 
-try:
-    from ._http import send_json
-    from .service import get_leaderboard
-except ImportError:
-    from _http import send_json
-    from service import get_leaderboard
+from api._http import send_json
+from api.service import get_leaderboard
 
 
 class handler(BaseHTTPRequestHandler):
